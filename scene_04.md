@@ -82,7 +82,7 @@ Looking at the contents of the default recipe you'll find its empty except for s
 
 -
 
-Lets copy or move our recipe to the setup cookbook and place it alongside our default recipe.
+Lets move our recipe to the setup cookbook and place it alongside our default recipe.
 
 -
 

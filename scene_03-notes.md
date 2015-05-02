@@ -1,5 +1,9 @@
 ## Resources
 
+### Commentary
+
+The attendees would benefit from being told the command to create/open the file.
+
 ### Purpose
 
 As an attendee I am given technical challenges to configure my workstation that require me to use Resources to resolve my configuration requirements.

@@ -18,7 +18,7 @@ Automation is beautiful when it works. A work of art. When it doesn't work -- we
 
 As we start to define our infrastructure as code we also need to start thinking about testing it.
 
-This is all too common a story that happens when delivering deployment scripts to production after they were only executed on a team member's workstation or in an integration environment. Essentially every platform except the ones running in production.
+Because this is all too common a story that happens when delivering deployment scripts to production. Deployment scripts that, if tested, are tested on every platform except the ones running in production.
 
 So how could we solve a problem like this?
 
@@ -62,7 +62,7 @@ And the leading question: What happens when the rate of cookbook changes exceed 
 9
 -
 
-Testing tools provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation - as tests are able to run in virtualized environments. We add new cookbook features and write tests to preserve this functionality so that when we - or anyone else on the team - returns to a cookbook tomorrow (or in a few months) to make additional changes we are certain we don't accidently break something.
+Testing tools provide automated ways to ensure that the code we write accomplishes its intended goal. It also helps us understand the intent of our code by providing executable documentation. We add new cookbook features and write tests to preserve this functionality. This provides us - or anyone else on the team - the ability to make new changes with a less likely chance of breaking something. Whether returning to the cookbook code tomorrow or in six months.
 
 -
 10
@@ -148,7 +148,7 @@ Here in this example this suite is named 'default'.
 21
 -
 
-This default setup will execute the run list containing: The setup cookbook's default recipe.
+This default suite will execute the run list containing: The setup cookbook's default recipe.
 
 -
 22
@@ -200,7 +200,7 @@ Now, run the `kitchen list` command to display our test matrix. We should see a 
 29
 -
 
-Wonderful. Now that we've defined the test matrix that we want to support. It is time to understand how to use Test Kitchen to creates a instance, converge a run list of recipes on that instances, verify that the instance is in the desired state, and then destroy the instance.
+Wonderful. Now that we've defined the test matrix that we want to support. It is time to understand how to use Test Kitchen to creates a instance, converge a run list of recipes on that instance, verify that the instance is in the desired state, and then destroy the instance.
 
 -
 30
@@ -327,7 +327,7 @@ Destroy is available at all stages and essentially cleans up the instance.
 45
 -
 
-There a single command that encapsulates the entire workflow - that is `kitchen test`. It works as all the other commands do with regard to parameters and targeting instances.
+There a single command that encapsulates the entire workflow - that is `kitchen test`.
 
 Kitchen test ensures that if the instance was in any state - created, converged, or verified - that it is immediately destroyed. This ensures a clean instance to perform all of the steps: create; converge; and verify. `kitchen test` completes the entire execution by destroying the instance at the end.
 
@@ -391,13 +391,13 @@ The next part the path, 'default', corresponds to the name of the test suite tha
 53
 -
 
-'serverspec' is the type of kind of tests that we want to define. Test Kitchen supports a number of testing frameworks.
+'serverspec' is the kind of tests that we want to define. Test Kitchen supports a number of testing frameworks.
 
 -
 54
 -
 
-The final part of the path is the specification file. This is a ruby file, as you are probably already aware. The naming convention for this file is the recipe name with the appended suffix of underscore-spec-dot-R-B. All specification files must end with underscore-spec-dot-R-B
+The final part of the path is the specification file. This is a ruby file. The naming convention for this file is the recipe name with the appended suffix of underscore-spec-dot-R-B. All specification files must end with underscore-spec-dot-R-B
 
 -
 55,56,57
@@ -407,7 +407,7 @@ Return to your home directory.
 
 Then move into the setup's cookbook directory.
 
-With the first specification created - lets verify the package named 'tree' is installed when we apply the setup cookbooks default recipe using the `kitchen verify` command to execute our tests.
+With the first test created - lets verify the package named 'tree' is installed when we apply the setup cookbooks default recipe using the `kitchen verify` command to execute our tests.
 
 -
 58
@@ -419,7 +419,7 @@ With the first test completed. It is time to commit the changes to source contro
 59
 -
 
-Now that we've explored the basic structure of writing specifications to validate our cookbook with a single expectation that the tree package is installed.
+Now that we've explored the basic structure of writing tests to validate our cookbook.
 
 What are other resources within the recipe that we could tests?
 
@@ -455,7 +455,7 @@ Here we are describing an expectation that the file named slash-E-T-C-slash-sudo
 
 Now as an exercise I want you to define additional tests that validate the remaining resources within our default recipe.
 
-Add examples for the remaining package resources that are converged by the "setup" cookbooks default recipe
+Add tests for the remaining package resources that are converged by the "setup" cookbooks default recipe
 
 You may also add tests for the file resource to ensure the file is present, that the contents are correctly defined, that it is owned by a particular user and owned by a particular group.
 

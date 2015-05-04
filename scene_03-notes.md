@@ -27,3 +27,14 @@ We lead a discussion on Chef's core resources. We show the attendees the resourc
 We ask the attendees to demonstrate the usage of the `file` and `package` resource in a recipe that will setup their entire system.
 
 We lead a discussion about the declarative nature of resources and the relationship between resources and providers.
+
+
+##
+
+Before the first exercise use a package in a recipe file. Two resources.
+
+The straight-forward questions
+
+More abstractions
+
+What questions for you? - helpful and statements for prompt

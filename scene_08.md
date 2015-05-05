@@ -19,28 +19,39 @@ In the last section we updated our two cookbooks to display information about ou
 What if new changes are given to us for the website splash page. Each new addition we would need to return to this recipe and carefully paste the contents of the new html into the string value of the content attribute.
 
 -
+4
+-
 
 There are some things that we need to becareful of when working with double-quoted strings with Ruby. It is that double-quoted strings are terminated by double-quoted strings so if any of the text that we paste into this content field has double quotes it is going to have to be escaped.
 
+-
+5
 -
 
 With Ruby strings we can use the backslash character as an escape character. In this case if we would want to have a double-quote in a double-quoted string we would need to place a backslash before the double-quote.
 
 -
+6
+-
 
 So that also brings up an issue with continually pasting in text. We will also need to keep an eye out for backslash characters. Because backslash characters are now the escape character. If you want to literally represent a backslash you need to use two-backslashes.
 
 -
-
+7
+-
 
 So every time text is pasted into the string value of the content attribute we will need to find and replace all backslashes with double-backslashes and then replace all double-quotes with backslash double-quotes.
 
+-
+8
 -
 
 Also it is important to note that the formatting of the string value of the content field may have some white space requirements and it is often easy to forget that because the text is inside a recipe file.
 
 Besides that as the shear size of the string value of the content field grows it will consume the recipe. Making it difficult to understand what is policy and what is data.
 
+-
+9
 -
 
 To me this sounds like a bug waiting to happen.

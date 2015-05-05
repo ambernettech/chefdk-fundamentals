@@ -303,11 +303,11 @@ Alright lets answer these four questions:
 
 -
 
-* How were the previous examples (i.e. package, service, file) describing the desired state of an element of our infrastructure?
+* What are some other possible examples of resources?
 
 -
 
-* What are some other possible examples of resources?
+* How did the examples resources we wrote describe the desired state of an element of our infrastructure?
 
 -
 

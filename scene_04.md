@@ -206,6 +206,10 @@ Applying the recipe with `chef-apply` I need to specify the partial path to the 
 
 -
 
+We setup apache which is a web server. So lets verify that the website is available and returns the content we expect to see.
+
+-
+
 Finally its time to add the apache cookbook to version control.
 
 * Move into that directory

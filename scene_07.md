@@ -1,4 +1,4 @@
--
+ -
 1
 -
 
@@ -8,11 +8,15 @@
 2
 -
 
-Have you ever had to manage a large number of servers that were almost identical, except that each one had to have some host-specific information in some config file somewhere?
+Have you ever had to manage a large number of servers that were almost identical?
 
-Maybe they needed to have the hostname embedded in the config file, or an IP address, or the name of an NFS filesystem on a mount point.
+How about a large number of identical servers except that each one had to have host-specific information in a configuration file?
 
-Maybe you needed to allocate 2/3 of available system memory into hugepages for a database. Maybe you needed to set your thread max to ([number of CPUs] – 1). And each one had to be managed by hand!
+The file needed to have the hostname or the IP address of the system.
+
+Maybe you needed to allocate two-thirds of available system memory into hugepages for a database. Perhaps you needed to set your thread max to number of CPUs minus one.
+
+The uniqueness of each system required you to define custom configuration files. Custom configurations that you need to manage by hand.
 
 -
 3
@@ -38,7 +42,7 @@ Let's walk through capturing that information using various system commands star
 
 To discover the ipaddress of the node, we can issue the command
 
-`hostname -l`
+`hostname -I`
 
 -
 6
@@ -50,7 +54,7 @@ Or we can dig it out of the results of running `ifconfig`.
 7
 -
 
-We can include this information in our slash-e-t-c-slash-m-o-t-d by updating the contents of the file's content attribute.
+We can include this information in our slash-e-t-c-slash-m-o-t-d by updating the contents of the file resource's content attribute.
 
 Within the existing string value we've inserted a number of new lines for formatting and placed our ipaddress along with its value.
 
@@ -64,7 +68,7 @@ Next is the machine's hostname. This is easily retrievable with the `hostname` c
 9
 -
 
-We can also include that information in the file's content attribute on a new line below our ipaddress.
+We can also include this information in the file resource's attribute on a new line below our ipaddress.
 
 -
 10
@@ -76,7 +80,7 @@ One way to gather the memory of our system is to `cat` the contents of the slash
 11
 -
 
-And again we can add it in the file's content attribute below our hostname.
+And again we can add it in the file resource's attribute below our hostname.
 
 -
 12
@@ -88,15 +92,15 @@ Discovering information about the system's CPU is very similar. We can `cat` the
 13
 -
 
-Adding it, like the others, to the file's content attribute.
+Adding it, like the others, to the file resource's content attribute.
 
 -
 14
 -
 
-By updated the file attribute we have introduced a change to the cookbook. This change may not work. It could be a typo when transcribed from the slide, or the code that I have provided you is out-of-date, or very possibly incorrect.
+By updating the file resource we have introduced a change to the cookbook. This change may not work. It could be a typo when transcribed from the slide, or the code that I have provided you is out-of-date, or very possibly incorrect.
 
-Before we apply the updated recipe we can use testing to ensure the recipe is corrrectly defined.
+Before we apply the updated recipe we can use testing to ensure the recipe is correctly defined.
 
 -
 15
@@ -108,15 +112,15 @@ Remember we are testing a specific cookbook with kitchen so we need to be within
 16
 -
 
-We have not defined any new tests related to the content changes of the slash-E-T-C-slash-M-O-T-D. So running the tests will tell us if we have accidently broken any of the existing functionality.
+We have not defined any new tests related to the content changes of the slash-E-T-C-slash-M-O-T-D. So running the tests will tell us if we have accidentally broken any of the existing functionality but there is nothing about the new functionality.
 
 -
 17
 -
 
-If everything looks good. Then we want to use `chef-client`. `chef-client` is not run on a specific cookbook -- it is a tool that allows us to apply recipes from multiple cookbooks within the cookbooks directory.
+If everything looks good. Then we want to use `chef-client`. `chef-client` is not run on a specific cookbook -- it is a tool that allows us to apply recipes for multiple cookbooks that are stored within a cookbooks directory.
 
-So we need to return home - the parent directory of all our cookbooks.
+So we need to return home to the parent directory of all our cookbooks.
 
 -
 18
@@ -141,7 +145,7 @@ Now that we've defined these values, lets reflect:
 
 What are the limitations of the way we captured this data?
 
-- 
+-
 21
 -
 
@@ -157,7 +161,7 @@ Are these values we would want to capture in our tests?
 23
 -
 
-If you've worked with systems for awhile general feeling is that hard-coding the values in our file's content attribute probably is not sustainable because the results are tied specifically to this sytem at this moment in time.
+If you have worked with systems for awhile the general feeling is that hard-coding the values in our file resource's attribute probably is not sustainable because the results are tied specifically to this system at this moment in time.
 
 -
 24
@@ -167,9 +171,9 @@ So how can we capture this data in real-time?
 
 Capturing the data in real-time on each system is definitely possible.
 
-One way would be to execute each of these commands, parse the results, and then insert the dynamic values within file resource's content attribute.
+One way would be to execute each of these commands, parse the results, and then insert the dynamic values within the file resource's content attribute.
 
-We could figure out a way to run system commands within our recipes. Or we may do it with a script, written in any language, that we write to the system and then execute that script to update the contents of the slash-E-T-C-slash-M-O-T-D.
+We could also figure out a way to run system commands within our recipes.
 
 Before we start down this path, I would like to introduce you to Ohai.
 
@@ -177,7 +181,7 @@ Before we start down this path, I would like to introduce you to Ohai.
 25
 -
 
-Ohai is a tool that detect and captures attributes about our system. Attributes like the ones we spent our time capturing.
+Ohai is a tool that detects and captures attributes about our system. Attributes like the ones we spent our time capturing already.
 
 -
 26
@@ -189,7 +193,7 @@ Ohai is also a command-line application that is part of the ChefDK.
 27
 -
 
-Ohai, the command-line application, will output all the system details it captures in JavaScript Object Notation (JSON).
+Ohai, the command-line application, will output all the system details represented in JavaScript Object Notation (JSON).
 
 -
 28
@@ -201,7 +205,7 @@ As I mentioned before these values are available in our recipes because `chef-cl
 29
 -
 
-The node object is a representation of our system. It stores all these attributes and a number of other information about the system. It is available within all the recipes that we write to assist us with solving the similar problems we outlined at the start.
+The node object is a representation of our system. It stores all these attributes found about the system. It is available within all the recipes that we write to assist us with solving the similar problems we outlined at the start.
 
 Lets look at using the node object to retrieve the ipaddress, hostname, total memory, and cpu megahertz.
 
@@ -209,17 +213,17 @@ Lets look at using the node object to retrieve the ipaddress, hostname, total me
 30
 -
 
-Above is the visualization of the node objective as a tree object. That is done here to illustrate that the node maintains a tree of attributes that we can request from it.
+Above is the visualization of the node attributes as a tree. That is done here to illustrate that the node maintains a tree of attributes that we can request from it.
 
-Below is the values we currently have and is hard-coded into the contents attribute.
+Below is the hard-coded value we currently have in the file resource's content attribute.
 
-At the bottom is an example of us displaying the dynamic value present on the node object. We are using ruby's `puts` to display the ipaddress attribute from of our node.
+At the bottom is an example of how we could use the node's dynamic value within a string instead of the hard-coded one.
 
 -
 31
 -
 
-The maintains a hostname attributes. This is how we retrieve and display it.
+The node maintains a hostname attribute. This is how we retrieve and display it.
 
 -
 32
@@ -239,7 +243,7 @@ And finally the megahertz of the first cpu.
 34
 -
 
-In all of the previous examples we demonstrated retrieving the values and displaying them within a string, the text, using a ruby language convention called string interpolation.
+In all of the previous examples we demonstrated retrieving the values and displaying them within a string using a ruby language convention called string interpolation.
 
 -
 35
@@ -251,7 +255,7 @@ String interpolation is only possible with strings that start and end with doubl
 36
 -
 
-To escape a string to display a ruby variable or ruby code you use the following sequence: number sign, left curly brace, the ruby variables or ruby code, and then a right curly brace.
+To escape out to display a ruby variable or ruby code you use the following sequence: number sign, left curly brace, the ruby variables or ruby code, and then a right curly brace.
 
 -
 37
@@ -281,9 +285,11 @@ And for the megahertz of the first CPU.
 41
 -
 
+Again we have created a change.
+
 Move into the setup cookbook's directory.
 
-Verify the changes we made to the setup cookbook's default recipe before we apply it to the system.
+Verify the changes we made to the setup cookbook's default recipe with kitchen.
 
 Return to the home directory
 
@@ -305,7 +311,7 @@ The first version of the cookbook displayed a simple property message in the sla
 44
 -
 
-Cookbooks use semantic version. The version number helps represent the state or feature set of the cookbook. Semanitc versioning allows us three fields to describe our changes: major; minor; and patch.
+Cookbooks use semantic version. The version number helps represent the state or feature set of the cookbook. Semantic versioning allows us three fields to describe our changes: major; minor; and patch.
 
 Major versions are often large rewrites or large changes that have the potential to not be backwards compatible with previous versions. This might mean adding support for a new platform or a fundamental change to what the cookbook accomplishes.
 
@@ -337,13 +343,15 @@ The last thing to do is commit our changes to source control. Change into the di
 48
 -
 
-Wonderful. Now its time to add similar functionaly to the apache cookbook.
+Wonderful. Now its time to add similar functionality to the apache cookbook.
 
-Update content attribute of the file resource, named slash-var-slash-dub-dub-dub-slash-h-t-m-l-slash-index-dot-h-t-m-l, to include the node's ipaddress and its hostname.
+Update the file resource, named slash-var-slash-dub-dub-dub-slash-h-t-m-l-slash-index-dot-h-t-m-l, to be created with the content that includes the node's ipaddress and its hostname.
 
 Run the tests to verify that the changes did not break anything.
 
-Update the version of the cookbook and then commit the changes.
+Update the version of the cookbook.
+
+And then commit the changes.
 
 > Allow the attendees time to complete this exercise
 
@@ -363,7 +371,7 @@ We change into the apache cookbook's directory.
 51
 -
 
-Then we run `kitchen converge` to verify ensure that the changes we introduced didn't introduce a regression.
+Then we run `kitchen test` to verify that the changes we introduced did not cause a regression.
 
 -
 52
@@ -387,7 +395,7 @@ Showing these two attributes in the index html page seems very similar to the fe
 55
 -
 
-And finally the changes should similarly be commit.
+And finally the changes should be committed.
 
 -
 

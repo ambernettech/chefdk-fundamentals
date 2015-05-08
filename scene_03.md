@@ -22,7 +22,7 @@ Emacs is fairly straightforward for editing files. It uses a chorded key system 
 
 * Nano
 
-Nano is usually touted as the easist editor to get started with editing through the command-line. There is no save. Nano will prompt you on exit if you would like to save the changes. You press Y to accept the changes and then ENTER to confirm to save to the filepath.
+Nano is usually touted as the easiest editor to get started with editing through the command-line. There is no save. Nano will prompt you on exit if you would like to save the changes. You press Y to accept the changes and then ENTER to confirm to save to the filepath.
 
 * Vim
 
@@ -158,6 +158,8 @@ So let's walk through creating a recipe file that creates a file named 'hello.tx
 
 Using your editor open the file named 'hello.rb'. 'hello.rb' is a recipe file. It has the extension DOT-R-B because it is a ruby file.
 
+-
+
 Add the resource definition displayed here.
 
 We are defining a resource with the type called 'file' and named 'hello.txt'. We also are stating what the contents of that file should contain 'Hello, World!'.
@@ -261,7 +263,7 @@ Now that you've practiced:
 
 Create a recipe named 'setup.rb' that
 
-* Installs the edtior
+* Installs the editor
 * Installs the tree package
 * And then creates an MOTD file
 
@@ -327,11 +329,3 @@ About anything or specifically about:
 * resources
 * a resources default action and default attributes
 * Test and Repair
-
-
-
-
-
-
-
-

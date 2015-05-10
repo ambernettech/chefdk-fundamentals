@@ -22,7 +22,7 @@ What if new changes are given to us for the website splash page. Each new additi
 4
 -
 
-There are some things that we need to becareful of when working with double-quoted strings with Ruby. It is that double-quoted strings are terminated by double-quoted strings so if any of the text that we paste into this content field has double quotes it is going to have to be escaped.
+There are some things that we need to be careful of when working with double-quoted strings with Ruby. It is that double-quoted strings are terminated by double-quotes so if any of the text that we paste into this content field has double quotes it is going to have to be escaped.
 
 -
 5
@@ -46,9 +46,9 @@ So every time text is pasted into the string value of the content attribute we w
 8
 -
 
-Also it is important to note that the formatting of the string value of the content field may have some white space requirements and it is often easy to forget that because the text is inside a recipe file.
+Also it is important to note that the file content may have some important formatting that can be easily overlooked when working with the content in a recipe file.
 
-Besides that as the shear size of the string value of the content field grows it will consume the recipe. Making it difficult to understand what is policy and what is data.
+Besides that, if the size of the string value of the content field grows it will consume the recipe. Making it difficult to understand what is policy and what is data.
 
 -
 9
@@ -62,7 +62,7 @@ Any process that requires me to manually copy and paste values and then remember
 10
 -
 
-More desireable is being able to store this data in another file. The file would be native to whatever format it required so it wouldn't require escaping any common characters.
+More desireable is being able to store this data in another file. The file would be native to whatever format is required so it we wouldn't need to escape any common characters.
 
 But we still need a way to insert node attributes. So really we need a native file format that allows us to escape out to ruby.
 
@@ -70,13 +70,13 @@ But we still need a way to insert node attributes. So really we need a native fi
 11
 -
 
-To solve this problem I think we are going to need to read up on the file resource more or see if Chef provides other resources we could use to solve this problem.
+To solve this problem I think we need to read up on the file resource more or see if Chef provides alternatives.
 
 -
 12
 -
 
-Lets start from what we know. The file resource. Open the documentation and see what it says and see if it gives us an clue to alternatives.
+Lets start from what we know. The file resource. Open the documentation and see what it says and see if it gives us an clue to finding alternatives.
 
 The file resource documentation suggests a couple of alternatives to using the file resource: cookbook_file resource; template resource; and remote_file resource.
 
@@ -152,7 +152,7 @@ Lets start with creating the actual template file and then we will update the re
 23
 -
 
-Remember that applicaiton Chef. The one that generated our cookbooks. Well it is able to generate cookbook components as well. Templates and files (for cookbook_files) are a few of the other things it can generate for us.
+Remember that application Chef. The one that generated our cookbooks. Well it is able to generate cookbook components as well. Templates and files (for cookbook_files) are a few of the other things it can generate for us.
 
 -
 24
@@ -185,13 +185,13 @@ So we want to use chef generate template to create a template in the apache cook
 28
 -
 
-Well that is the first step. Now the template exists is ready for us to define the content within the template file.
+Well that is the first step. Now that the template exists. We are ready for us to define the content within the template file.
 
 -
 29
 -
 
-Now we need to understand what it ERB means.
+Now we need to understand what does ERB mean.
 
 -
 30
@@ -275,7 +275,7 @@ Last we need to specify a source attribute which contains that path to the templ
 
 To visualize that with tree we can run it with a path that places us right at the templates directory. So the results will be relative paths from the point specified.
 
-> The default folder denotes that we want to use this file for all platforms. 
+> The default folder denotes that we want to use this file for all platforms.
 
 And we see the filepath index-dot-h-t-m-l-dot-e-r-b.
 
@@ -302,15 +302,15 @@ So its time to use kitchen to verify the cookbook and use chef-client to apply t
 47
 -
 
-The kitchen is a cookbook testing tool so we need to move into the cookbook directory.
+Kitchen is a cookbook testing tool so we need to move into the cookbook's directory.
 
 -
 
-There we run the kitchen verify command. Addressing any issues if they show up. 
+Then we run the kitchen test command. Addressing any issues if they show up.
 
 -
 
-Otherwise we return to the home directory, outside of all of our cookbooks because chef-client manages applying cookbooks.
+When all the test pass, return to the home directory, so we can execute chef-client.
 
 -
 
@@ -318,7 +318,7 @@ And we apply the apache cookbook's default recipe to the local system.
 
 -
 
-If everything converges correctly, then it is time to update the version number. I mentioned earlier its a patch fix - we could argue if its a minor update - or we could get work done.
+If everything converges correctly, then it is time to update the version number. I mentioned earlier its a patch fix.
 
 -
 

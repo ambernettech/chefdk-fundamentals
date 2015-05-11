@@ -34,7 +34,7 @@ Please refer to the [issues](https://github.com/learnchef/chefdk-fundamentals/is
 
 ## [07](scene_07.md) Attributes
 
-## [08](scene_08.md) Separating Policy and Data
+## [08](scene_08.md) Separating Desired State and Data
 
 ## [09](scene_09.md) Workstation Installation
 

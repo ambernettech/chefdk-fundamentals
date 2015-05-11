@@ -2,9 +2,9 @@
 1
 -
 
-## Policy and Data
+## Desired State and Data
 
-Separating the content from the policy for clarity
+Separating the content from the desired state for clarity
 
 -
 2
@@ -48,7 +48,7 @@ So every time text is pasted into the string value of the content attribute we w
 
 Also it is important to note that the file content may have some important formatting that can be easily overlooked when working with the content in a recipe file.
 
-Besides that, if the size of the string value of the content field grows it will consume the recipe. Making it difficult to understand what is policy and what is data.
+Besides that, if the size of the string value of the content field grows it will consume the recipe. Making it difficult to understand what is desired state and what is data.
 
 -
 9

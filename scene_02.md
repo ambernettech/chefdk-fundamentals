@@ -1,6 +1,6 @@
 ## Getting a Workstation
 
-In order to maximize our time on becoming fluent in Chef, we are going to start with pre-configured student workstations. These workstations have all of our necessary tools installed with classroom customized configurations.  There is nothing special about these workstations other than the fact that they are going to save us time getting started.
+In order to maximize our time on becoming fluent in Chef, we are going to start with pre-configured workstations. These workstations have all of our necessary tools installed with classroom customized configurations.  There is nothing special about these workstations other than the fact that they are going to save us time getting started.
 
 We'll end today's lesson by having an Install Fest.  During that time we will learn about the underlying tools, setup procedures, and will have ample time to troubleshoot any installation issues you may be experiencing on your local workstation.
 

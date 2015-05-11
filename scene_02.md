@@ -6,6 +6,6 @@ We'll end today's lesson by having an Install Fest.  During that time we will le
 
 I will distribute publicly addressable system addresses with the user name and password required to access these machines.
 
-We will spend the entire day on these machines developing chef code. At the end of the day I can assist anyone that needs help retrieving the code from this remote workstation.
+We will spend the entire day on these machines developing chef code. At the end of the day I able to assist anyone that needs help retrieving the code from this remote workstation.
 
-Now that everyone has a workstation, I want describe what has been setup. You are using an Ubuntu 14.04 instance being hosted on EC2. This instance has a chef user which has been granted password-less sudoers access. The ChefDK is installed, Docker, and a plugin to all a testing tool in Chef work with Docker.
+The remote workstation you are using is an Ubuntu 14.04 instance being hosted on EC2. This instance has a chef user which has been granted password-less sudoers access. The ChefDK is installed, Docker, and a plugin to allow testing tools within ChefDK to work with Docker.

@@ -1,5 +1,13 @@
 ## Chef Fundamentals Introduction
 
+Welcome your class to Chef Fundamentals Day 1.  We'll be focusing on using Chef through everything that's available in the Chef Development Kit (chefdk).
+
+Introduce yourself.  Tell students your name, your current job role at Chef, a brief summary of your previous job roles/background, a recap of your experience with Chef/config management/automation, and a fun personal factoid.
+
+Have your students introduce themselves.
+
+We set expectations for the course by covering our anticipated outcomes, agenda, and interaction styles.
+
 ### Module objectives
 
 The purpose of introductions is to get to know your audience.  Try to assess interests, skill level, and motivation for learning Chef so the instructor can later maintain a consistent level of engagement.

@@ -12,15 +12,15 @@ In the ChefDK we package another tool. An older sibling, if you will, to the che
 
 -
 
-Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying one recipe and that is the setup recipe within our setup cookbook.
+Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying one recipe and that is the setup recipe within our workstation cookbook.
 
 -
 
-Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying one recipe and that is the apache recipe within our apache cookbook.
+Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying one recipe and that is the server recipe within our apache cookbook.
 
 -
 
-Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying two recipes. The setup recipe from the setup cookbook and the apache recipe within our apache cookbook.
+Here is an example of using `chef-client` to locally apply the following run list of recipes. In this case we are applying two recipes. The setup recipe from the workstation cookbook and the server recipe within our apache cookbook.
 
 -
 
@@ -38,7 +38,7 @@ Before we start applying cookbooks through chef-client, make sure you are in you
 
 -
 
-Lets try applying our apache recipe from the apache cookbook using `chef-client` in local mode.
+Lets try applying our server recipe from the apache cookbook using `chef-client` in local mode.
 
 Upon execution you unfortunately are presented with an error.
 
@@ -52,7 +52,7 @@ Let's make a directory named 'cookbooks'
 
 -
 
-And move our setup cookbook into the cookbooks directory
+And move our workstation cookbook into the cookbooks directory
 
 -
 
@@ -62,11 +62,11 @@ And move our apache cookbook into the cookbooks directory
 
 Now, lets try that again. This time with all of our cookbooks in the cookbooks directory like `chef-client` expects.
 
-Try applying the apache cookbook's recipe named apache.
+Try applying the apache cookbook's recipe named server.
 
 -
 
-Try applying the setup cookbook's recipe named setup.
+Try applying the workstation cookbook's recipe named setup.
 
 -
 
@@ -82,11 +82,11 @@ Similar to how resources have default actions and default attributes chef uses t
 
 A cookbook doesn't have to have a default recipe but most every cookbook has one. It's called default because when you think of a cookbook it is probably the recipe that defines the most common configuration policy.
 
-When I think about the two cookbooks that we created. The apache cookbook with the apache recipe and the setup cookbook with the setup recipe it seems like those recipes would be good default recipes for their respective cookbooks.
+When I think about the two cookbooks that we created. The apache cookbook with the apache recipe and the workstation cookbook with the setup recipe it seems like those recipes would be good default recipes for their respective cookbooks.
 
 -
 
-Lets start by updating the setup cookbook's default recipe to run our setup recipe.
+Lets start by updating the workstation cookbook's default recipe to run our setup recipe.
 
 -
 
@@ -98,25 +98,25 @@ We can more easily switch our cookbooks default behavior which can be useful whe
 
 -
 
-Here we are including the "setup" cookbook's "setup" recipe.
+Here we are including the "workstation" cookbook's "setup" recipe.
 
 -
 
-Here we are including the "apache" cookbook's "apache" recipe.
+Here we are including the "apache" cookbook's "server" recipe.
 
 -
 
 Within the default recipe we define the `include_recipe` method and provide one parameter which is the name of our cookbook colon-colon name of our recipe.
 
-We are interested in having the default recipe for our setup cookbook run the contents of the setup recipe.
+We are interested in having the default recipe for our workstation cookbook run the contents of the setup recipe.
 
 -
 
-We can now use chef-client to locally apply the cookbook named setup. This will load our setup cookbook's default recipe which in turn loads our setup cookbook's setup recipe.
+We can now use chef-client to locally apply the cookbook named workstation. This will load our workstation cookbook's default recipe which in turn loads our workstation cookbook's setup recipe.
 
 -
 
-An exercise for you is to update the apache cookbook's default recipe to include the apache cookbook's recipe named apache.
+An exercise for you is to update the apache cookbook's default recipe to include the apache cookbook's recipe named server.
 
 Then re-run chef-client with a run_list that applies the recipe-open-bracket-apache-close-bracket.
 
@@ -126,7 +126,7 @@ The updated default recipe should look like the following.
 
 -
 
-And the command that we run should similar use our more succint run list.
+And the command that we run should similar uses our more succint run list.
 
 -
 

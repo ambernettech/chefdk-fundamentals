@@ -106,7 +106,7 @@ Before we apply the updated recipe we can use testing to ensure the recipe is co
 15
 -
 
-Remember we are testing a specific cookbook with kitchen so we need to be within the directory of the cookbook. So change directory into the setup cookbook's directory.
+Remember we are testing a specific cookbook with kitchen so we need to be within the directory of the cookbook. So change directory into the workstation cookbook's directory.
 
 -
 16
@@ -126,7 +126,7 @@ So we need to return home to the parent directory of all our cookbooks.
 18
 -
 
-We use `chef-client`, from our home directory, to locally apply the run list defined as: the setup cookbook's default recipe.
+We use `chef-client`, from our home directory, to locally apply the run list defined as: the workstation cookbook's default recipe.
 
 
 -
@@ -287,13 +287,13 @@ And for the megahertz of the first CPU.
 
 Again we have created a change.
 
-Move into the setup cookbook's directory.
+Move into the workstation cookbook's directory.
 
-Verify the changes we made to the setup cookbook's default recipe with kitchen.
+Verify the changes we made to the workstation cookbook's default recipe with kitchen.
 
 Return to the home directory
 
-And then use chef-client to locally apply the setup cookbook's default recipe.
+And then use chef-client to locally apply the workstation cookbook's default recipe.
 
 -
 42
@@ -359,7 +359,7 @@ And then commit the changes.
 49
 -
 
-Similar to the work that we did in the setup cookbook, we add our two node attributes using string interpolation.
+Similar to the work that we did in the workstation cookbook, we add our two node attributes using string interpolation.
 
 -
 50
@@ -389,7 +389,7 @@ If everything passes then we feel confident that it will also work on the curren
 54
 -
 
-Showing these two attributes in the index html page seems very similar to the feature we added for the setup cookbook. So I chose to update the version of the apache cookbook to 0.2.0 as well.
+Showing these two attributes in the index html page seems very similar to the feature we added for the workstation cookbook. So I chose to update the version of the apache cookbook to 0.2.0 as well.
 
 -
 55

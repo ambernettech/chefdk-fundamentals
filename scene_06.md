@@ -100,7 +100,7 @@ There are a number of flags and other options but let's see if the cookbooks we 
 14
 -
 
-Using `tree` to look at the setup cookbook, showing all hidden files and ignoring all git files, it looks like our cookbook already has a dot-kitchen-dot-yaml.
+Using `tree` to look at the workstation cookbook, showing all hidden files and ignoring all git files, it looks like our cookbook already has a dot-kitchen-dot-yaml.
 
 It was actually created alongside the other files when we ran the `chef generate cookbook` command when we originally created this cookbook.
 
@@ -148,7 +148,7 @@ Here in this example this suite is named 'default'.
 21
 -
 
-This default suite will execute the run list containing: The setup cookbook's default recipe.
+This default suite will execute the run list containing: The workstation cookbook's default recipe.
 
 -
 22
@@ -174,7 +174,7 @@ And the second centos-six-dot-four platform.
 25
 -
 
-Remembering our objective. We want to update our dot-kitchen-dot-yaml file to use the Docker driver and we want to test against a single platform named centos-six-dot-four.
+Remembering our objective. We want to update our dot-kitchen-dot-yaml file to use the Docker driver and we want to test against a single platform named ubuntu-fourteen-dot-zero-four.
 
 -
 26
@@ -188,7 +188,7 @@ Docker is a driver. Lets replace the existing vagrant driver, in our dot-kitchen
 27
 -
 
-We also want to update our platforms to list only centos-six-dot-four.
+We also want to update our platforms to list only ubuntu-fourteen-dot-zero-four.
 
 -
 28
@@ -210,7 +210,7 @@ The first kitchen command is `kitchen create`.
 
 To create an instance means to turn on virtual or cloud instances for the platforms specified in the kitchen configuration.
 
-In our case, this command would use the Docker driver to create a docker image based on centos-six-dot-four.
+In our case, this command would use the Docker driver to create a docker image based on ubuntu-fourteen-dot-zero-four.
 
 > The command does allow you to create specific instances by name or all instances that match a provided criteria.
 
@@ -224,7 +224,7 @@ So let me introduce you to the second kitchen command: `kitchen converge`.
 
 Converging an instance will create the instance if it has not already been created. Then it will install chef and apply that cookbook to that instance.
 
-In our case, this command would take our image and install chef and apply the setup cookbook's default recipe.
+In our case, this command would take our image and install chef and apply the workstation cookbook's default recipe.
 
 > It also, like the`kitchen create` commands, defaults to all instances when executed without any parameters. And is capable of accepting parameters to converge a specific instance or all instances that match the provided criteria.
 
@@ -233,17 +233,17 @@ In our case, this command would take our image and install chef and apply the se
 32,33
 -
 
-Move into the setup cookbook's directory
+Move into the workstation cookbook's directory
 
-Lets use `kitchen converge` to verify that the setup cookbook is able to converge the default recipe against the platform centos-six-dot-four.
+Lets use `kitchen converge` to verify that the workstation cookbook is able to converge the default recipe against the platform ubuntu-fourteen-dot-zero-four.
 
-The setup cookbook should successfully apply the default recipe. If an error has occured lets stop and troubleshoot the issues.
+The workstation cookbook should successfully apply the default recipe. If an error has occured lets stop and troubleshoot the issues.
 
 -
 34
 -
 
-Now, I want you to do the same thing again for the apache cookbook. Update the dot-kitchen-dot-yaml file so that it converges the apache cookbook's default recipe on the centos-six-dot-four platform with the docker driver.
+Now, I want you to do the same thing again for the apache cookbook. Update the dot-kitchen-dot-yaml file so that it converges the apache cookbook's default recipe on the ubuntu-fourteen-dot-zero-four platform with the docker driver.
 
 > Allow time for the attendees to complete the exercise
 
@@ -251,7 +251,7 @@ Now, I want you to do the same thing again for the apache cookbook. Update the d
 35
 -
 
-Same as before we update the dot-kitchen-dot-YAML file to use the docker driver and the centos-six-dot-four platform.
+Same as before we update the dot-kitchen-dot-YAML file to use the docker driver and the ubuntu-fourteen-dot-zero-four platform.
 
 -
 36,37
@@ -265,7 +265,7 @@ Then we move into the apache cookbook folder ...
 38
 -
 
-And execute `kitchen converge` to validate that our apache cookbook's default recipe is able to converge on the centos-six-dot-four instance.
+And execute `kitchen converge` to validate that our apache cookbook's default recipe is able to converge on the ubuntu-fourteen-dot-zero-four instance.
 
 -
 39
@@ -295,7 +295,7 @@ Converging the instance ensured that the recipe was able to install a package, w
 
 There is no automation that automically understands the intention defined in the recipes we create. To do that we will define our own automated test.
 
-Lets explore testing by adding a simple test to validate that the tree package is installed after converging the setup cookbook's default recipe.
+Lets explore testing by adding a simple test to validate that the tree package is installed after converging the workstation cookbook's default recipe.
 
 -
 43
@@ -373,7 +373,7 @@ The second parameter is the block between the the do and end. Within that block 
 50
 -
 
-Here is that example expectation that I showed you earlier except now it is displayed here within this context. This states that when we converge the setup cookbook's default recipe we want to assert that the tree package has been installed.
+Here is that example expectation that I showed you earlier except now it is displayed here within this context. This states that when we converge the workstation cookbook's default recipe we want to assert that the tree package has been installed.
 
 -
 51
@@ -405,9 +405,9 @@ The final part of the path is the specification file. This is a ruby file. The n
 
 Return to your home directory.
 
-Then move into the setup's cookbook directory.
+Then move into the workstation's cookbook directory.
 
-With the first test created - lets verify the package named 'tree' is installed when we apply the setup cookbooks default recipe using the `kitchen verify` command to execute our tests.
+With the first test created - lets verify the package named 'tree' is installed when we apply the workstation cookbooks default recipe using the `kitchen verify` command to execute our tests.
 
 -
 58
@@ -427,7 +427,7 @@ What are other resources within the recipe that we could tests?
 60
 -
 
-ServerSpec provides a large number of helpers to assist us with many different resources on our system. Important to us in testing more of our setup cookbook's default recipe is the ability to verify if a file was written, what are the permissions of that file, and what are the contents.
+ServerSpec provides a large number of helpers to assist us with many different resources on our system. Important to us in testing more of our workstation cookbook's default recipe is the ability to verify if a file was written, what are the permissions of that file, and what are the contents.
 
 Lets look at a few examples:
 
@@ -455,7 +455,7 @@ Here we are describing an expectation that the file named slash-E-T-C-slash-sudo
 
 Now as an exercise I want you to define additional tests that validate the remaining resources within our default recipe.
 
-Add tests for the remaining package resources that are converged by the "setup" cookbooks default recipe
+Add tests for the remaining package resources that are converged by the "workstation" cookbook's default recipe
 
 You may also add tests for the file resource to ensure the file is present, that the contents are correctly defined, that it is owned by a particular user and owned by a particular group.
 
@@ -499,7 +499,7 @@ Wonderful. Now lets turn our focus towards testing the apache cookbook.
 
 What are some things we could test to validate our web server has deployed correctly?
 
-The apache cookbook is similar to the setup cookbook. It has a package and file which are things that we have already tested. The new thing is the service. We could review the ServerSpec documentation to find examples on how to test the service.
+The apache cookbook is similar to the workstation cookbook. It has a package and file which are things that we have already tested. The new thing is the service. We could review the ServerSpec documentation to find examples on how to test the service.
 
 But does testing the package, file and service validate that apache is hosting our static web page and returning the content to visitors of the instance?
 

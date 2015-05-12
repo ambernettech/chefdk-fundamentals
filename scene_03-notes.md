@@ -1,40 +1,44 @@
-## Resources
+# Resources
 
-### Commentary
-
-The attendees would benefit from being told the command to create/open the file.
-
-### Purpose
+## Purpose
 
 As an attendee I am given technical challenges to configure my workstation that require me to use Resources to resolve my configuration requirements.
 
-### Motivation
+## Motivation
 
 The motivation is to provide a simple tangible use case by focusing solely on Resources. This smaller scope at the outset gives attendees the ability to see the value and effectiveness of Chef from the outset. Mastery of Resources, in this smaller domain, allows us to focus on a fundamental piece of Chef without the other overhead of the concepts.
 
-### Flow
+## Flow
 
 Attendees are given access to a virtual machine with all the necessary tools pre-installed. The attendees are given the challenge to install and configure their systems.
 
-We demonstrate using the `package` resource to install a software package. Attendees demonstrate the use of the `package` resource.
+We demonstrate using the `package` resource to install a text editor on the system.
 
-We demonstrate using the `file` resource to manage a file. Attendees demonstrate the use of the `file` resource.
+We lead a discussion starts them thinking about test-and-repair by asking them to run the command again or in an uninstalled scenario. Then we talk about test-and-repair.
 
-We lead a discussion on resource management. We demonstrate Chef's ability to perform test and repair in a number of scenarios. Attendees demonstrate Chef's test and repair.
+We display a demonstration of this with the editor.
 
-We lead a discussion on Chef's core resources. We show the attendees the resources documentation. We demonstrate defining a new attribute on the `file` resource. Attendees demonstrate the ability to augment a `file` resource attribute.
+With the objective complete then we lead the attendees in a 'Hello, world!' example using chef. We demonstrate using the `file` resource to manage a file.
 
-We ask the attendees to demonstrate the usage of the `file` and `package` resource in a recipe that will setup their entire system.
+We lead a discussion on test-and-repair again in a number of scenarios.
 
-We lead a discussion about the declarative nature of resources and the relationship between resources and providers.
+We break down the structure of a resource definition. We leave them with the question what is the default action for the file resource.
+
+We give them an exercise to read the doucmentation on the file resource. To find the default action and while they are there to find the default attribute values for mode, owner, and group.
+
+We review the exercise. We open up the discussion to questions.
+
+We give the attendees a new objective of capturing the entire system setup in a recipe file. We give them the additional requirement of installing the tree package.
+
+We give them an exercise to accomplish this objective.
+
+We walk through the exercise.
+
+We finish with a discussion about resources.
 
 
-##
+## Troubleshooting
 
-Before the first exercise use a package in a recipe file. Two resources.
+The number one issue in this section is that people will forget to includ `sudo` when executing the commands.
 
-The straight-forward questions
-
-More abstractions
-
-What questions for you? - helpful and statements for prompt
+The attendees may have trouble remembering the package resource syntax because they previously used the `chef-apply` command to perform the installation.

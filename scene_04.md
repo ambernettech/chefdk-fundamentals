@@ -4,7 +4,7 @@ Well the recipe that you put together to setup the workstation proved useful. Us
 
 That shouldn't be a problem right?
 
-It's a package, a file, and a service. Everything you've already completed.
+It's a package, a file, and a service. Everything you've already completed - well almost everything.
 
 Now the request to add version control and a README would definitely make it easier to share the recipes that we create.
 
@@ -13,6 +13,76 @@ Without version control we'd have no way to build this software collaboratively 
 Without a README no one would know what the recipe even was suppose to do or what it did.
 
 -
+
+Lets pick a version control system.
+
+-
+
+Lets explore this first option of renaming the file. Add a quick extension and that way we can keep working on the original file as we add more features.
+
+-
+
+As a group lets talk about the pros and cons of using this strategy.
+
+-
+
+So obviously a single backup won't do. We need backups more often as we are going to be iterating quickly. So we could use the current date and time down to the minute.
+
+-
+
+As a group lets talk about the pros and cons of using this strategy.
+
+-
+
+Alright, would adding the user's name to the end of the file solve the problems we are facing with other choices.
+
+-
+
+Again pros and cons of this new approach
+
+-
+
+What if we stored this information in a wiki?
+
+-
+
+What are the pros and cons of this approach.
+
+-
+
+How about we use git?
+
+-
+
+What are the pros and cons of this approach.
+
+-
+
+For the rest of this workshop we will be using git.
+
+-
+
+Is git installed? Do we know if it will be installed with every new instance that is setup?
+
+It sounds like we need the tool now to store our cookbook but we also want to define a policy that git is installed on all of our workstations.
+
+Lets update our setup recipe to define a new statement of configuration policy:
+
+The package named 'git' is installed
+
+> Allow time for individuals to complete this exercise.
+
+-
+
+We add a package resource named 'git' to the setup recipe within our workstation cookbook.
+
+-
+
+Then we use chef-apply to apply our recipe. The recipe path has changed. Remember it is inside the workstation cookbook's recipe directory.
+
+-
+
+
 
 Lets tackle this head on. If we're going to use Chef as a configuration management tool and we are going to treat our infrastructure as code we need to make sure that we start using version control.
 
@@ -46,9 +116,9 @@ Alright. To generate a cookbook all we have to do is provide it with a name. Uh 
 
 -
 
-Don't worry I have you covered. Call the cookbook setup. That's a generic enough name.
+Don't worry I have you covered. Call the cookbook workstation. That's a generic enough name.
 
-I want you to use chef generate to generate a cookbook named 'setup'.
+I want you to use chef generate to generate a cookbook named 'workstation'.
 
 -
 
@@ -82,47 +152,15 @@ Looking at the contents of the default recipe you'll find its empty except for s
 
 -
 
-Lets move our recipe to the setup cookbook and place it alongside our default recipe.
+Lets move our recipe to the workstation cookbook and place it alongside our default recipe.
 
 -
 
-Well now that we have our cookbook with its README and version number its time to add it to source control. We are going to use git in this workshop but you are welcome to use version control tools that are the most effective for your team.
+Well now that we have our cookbook with its README and version number its time to add it to version control.
 
 -
 
-Is git installed? Do we know if it will be installed with every new instance that is setup?
-
-It sounds like we need the tool now to store our cookbook but we also want to define a policy that git is installed on all of our workstations.
-
-Lets update our setup cookbook's setup recipe to define a new statement of configuration policy:
-
-The package named 'git' is installed
-
-> Allow time for individuals to complete this exercise. This reinforces the concept that chef-apply works on a filepath.
-
--
-
-We add a package resource named 'git' to the setup recipe within our setup cookbook.
-
--
-
-Then we use chef-apply to apply our recipe. The recipe path has changed. Remember it is inside the setup cookbook's recipe directory.
-
--
-
-It is great to store recipes within a cookbook but its tiresome working with recipes in this way. Constantly having to specify this entire path. That's not really delightful.
-
-And that's because `chef-apply` is a great tool to explore concepts within Chef but it is not the tool that you will be using on your production systems.
-
-There is another tool named 'chef-client' which we will explore in the next section.
-
--
-
-Now with git installed, it's time for us to actually add the cookbook to source control.
-
--
-
-Lets change folder into the setup cookbook.
+Lets change folder into the workstation cookbook.
 
 -
 
@@ -156,19 +194,27 @@ If everything that is staged looks correct then we are ready to commit the chang
 
 That is like saying we're ready to close the box up.
 
-That is done in git with `git commit`. We can optionally provide a message on the command-line and that is done with the DASH-m flag and then a string of text that describes that change.
+That is done in git with `git commit`. We can optionally provide a message on the command-line and that is done with the DASH-M flag and then a string of text that describes that change.
 
-> Without that flag git attempts to use the system that you've defined as your default EDITOR.
-
-> Git does not know who is making the commit. An additional fun exercise is to have people use Chef to write a file resource that generates the `~/.gitconfg` with their user name and email address.
+However, if you run this command it will fail because git needs a minor amount of configuration information. Specifically an email address and a user name. It provides the commands to do that so lets execute those.
 
 -
 
-So again, within the cookbook, we initialize the git repository. Place every file in the cookbook into the staging area. And finally commit all those staged changes.
+First we'll setup the email address. I use the email address associated with my GitHub account but that is not required or even necessary to use git.
 
 -
 
-Now that we are done adding our setup cookbook to source control lets return to our home directory.
+And second we'll setup the username. This is usually my GitHub account name but again that is not required data for this field.
+
+-
+
+So we again we use the git commit command with the DASH-M flag and then a string of text the describes that change.
+
+This time all the files should be committed successfully.
+
+-
+
+Now that we are done adding our workstation cookbook to source control lets return to our home directory.
 
 -
 
@@ -190,15 +236,19 @@ Alright first I would leverage the chef command-line application to generate a c
 
 -
 
-The apache recipe defines the policy:
+The server recipe defines the policy:
 
-* The package named h-t-t-p-d is installed.
+* The package named apache2 is installed.
 
 * The file named slash-var-slash-dub-dub-dub-slash-h-t-m-l-slash-index-dot-h-t-m-l is created with the content "Hello, world!"
 
-* The service named h-t-t-p-d is started and enabled.
+* The service named apache2 is started and enabled.
 
-For service you could define two resources with the same name and each with a different action: start and enable. But you can also to combine these actions together into a Ruby array and provide that as a value to the action attribute.
+For service you could define two resources with the same name and each with a different action: start and enable.
+
+-
+
+But you can also to combine these actions together into a Ruby array and provide that as a value to the action attribute.
 
 -
 

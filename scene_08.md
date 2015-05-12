@@ -120,7 +120,7 @@ The biggest difference is that it says templates can contain ruby expressions an
 18
 -
 
-And if we look at the bottom section about Using Templates we see more information about what is required and how we can use them to escape out to execute ruby code.
+And if we look at the bottom section about "Using Templates" we see more information about what is required and how we can use them to escape out to execute ruby code.
 
 -
 19
@@ -253,7 +253,7 @@ The template is created and the contents are correctly defined. It is time to up
 40
 -
 
-Lets open the apache cookbook's recipe named 'apache'.
+Lets open the apache cookbook's recipe named 'server'.
 
 We will want to remove the content attribute from the file resource. Because that content is now in the template. But only if we use a template resource.
 
@@ -328,7 +328,7 @@ We return to the cookbook directory. Add all the changed files and commit them w
 53
 -
 
-Its time to do that again. This time for the setup cookbook.
+Its time to do that again. This time for the workstation cookbook.
 
 Generate a template named motd, copy in the source attribute from the file resource, and then update it to use ERB tags.
 

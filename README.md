@@ -2,7 +2,19 @@
 
 This is the outline for an in-person workshop. Each scene represents a series of activities that accomplish a goal and discover new concepts in Chef.
 
-## Details
+
+## Layout
+
+The content is broken down into scenes or sections. This is currently done to make the process of managing the process of content creation and content management easier.
+
+Each section has:
+
+* Slides - the content to display to the attendees while teaching the concept
+* Script - an example of the words you might use to describe the content to attendees
+* Guide - additional information about how to lead that section of content 
+
+
+## Teaching
 
 This content can be taught in a few ways.
 
@@ -27,6 +39,7 @@ After the first day the attendees are shown how to manage multiple nodes and coo
 Requirements:
 
 * TWO (2) Ubuntu 14.04 Instance
+
 
 ## Our Play
 
@@ -93,11 +106,11 @@ Each scene is deliverable. Allowing for the development and refinement of scenes
 
 Please refer to the [issues](https://github.com/learnchef/chefdk-fundamentals/issues) to figure out what sections could use your attention.
 
-* Write the scene text - If you find a scene text is missing, write an initial outline of the scene. Don't worry someone will come through and clean it up. I promised. Plus it would be fun. You can help shape the words that are said aloud when the training is delivered. What should you use as inspiration? Well if there are slides then use those -- none of those, well then it's fresh snow!
+* Add to the GUIDES - If you have taught the material or preparing to teach the material please feel free to contribute to a section GUIDE. These notes are useful for providing pre-canned examples of additional context, trouble-shooting tips, communicating meta-narrative to other instructors, or other things that would do not fit elsewhere in the content.
 
-* Edit the scene text - I promised a few people that you would edit the scenes. They told me there all these delicious spelling errors and grammatical issues spread all over. Oh yeah - there is one more thing, if there are slides then make sure your major soap box moments get captured as slides.
+* Write the scene text - If you find a scene text is missing, write an initial outline of the scene. Don't worry someone will come through and clean it up. I promise. Plus it would be fun. You can help shape the words that are said aloud when the training is delivered. What should you use as inspiration? Well if there are slides then use those -- none of those, well then it's fresh snow!
 
-* Writing the speaker notes - If there is more context that could be useful to instructors but it probably doesn't apply to classes universally, add it to the speaker notes.  These notes are useful for providing pre-canned examples of additional context, communicating meta-narrative to other instructors, or other things that might fit into an instructor's guide.  The speaker notes are a deeper dive into things that may not fit neatly the scene text.
+* Edit the scene text - Up above, I promised a people that you would edit the scenes. Editing a scene you want to obviously catch spelling and grammatical issues. But equally important is to ensure that the content being described works and is clearly expressed in the cotent.
 
 * Writing the scene slides - If the slides aren't there then welcome to exciting world of Powerpoint. Hey if you don't have Powerpoint but have a great idea for slides -- do it anyways, because great content is great content.
 

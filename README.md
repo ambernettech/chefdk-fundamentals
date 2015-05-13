@@ -110,6 +110,10 @@ Each scene is deliverable. Allowing for the development and refinement of scenes
 
 Please refer to the [issues](https://github.com/learnchef/chefdk-fundamentals/issues) to figure out what sections could use your attention.
 
+* Found an issue with the slides - Open an issue. When you open the issue: 1) include a picture of the slide and information to identify its location (e.g. section name/number, slide number).
+
+> The reason to open up issues an include the fix is because there is no good way to merge binary files. It would awful if you made changes to the same presentation file as someone else. It would be hard to find the differences.
+
 * Add to the GUIDES - If you have taught the material or preparing to teach the material please feel free to contribute to a section GUIDE. These notes are useful for providing pre-canned examples of additional context, trouble-shooting tips, communicating meta-narrative to other instructors, or other things that would do not fit elsewhere in the content.
 
 * Write the scene text - If you find a scene text is missing, write an initial outline of the scene. Don't worry someone will come through and clean it up. I promise. Plus it would be fun. You can help shape the words that are said aloud when the training is delivered. What should you use as inspiration? Well if there are slides then use those -- none of those, well then it's fresh snow!

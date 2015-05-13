@@ -32,6 +32,10 @@ Requirements:
 * Docker service running
 * The kitchen-docker gem has been installed.
 
+Completion:
+
+https://github.com/chef-training/chefdk-fundamentals-repo
+
 ### Two-Day Chef Fundamentals
 
 After the first day the attendees are shown how to manage multiple nodes and cookbooks with a Chef Server. The work is done on their own workstations. They bootstrap several nodes and coordinate them all with Chef to stand up a load balancer (wrapper cookbook around haproxy) that redirects traffic to nodes running a webserver.

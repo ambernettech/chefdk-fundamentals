@@ -48,7 +48,7 @@ The are many work-a-rounds. The one suggested for this activity is to create wra
 
 As an exercise have the attendees upload the cookbook to the Chef Server.
 
-#### Add a managed node running the Proxy Server
+#### Add a Managed Node Running the Proxy Server
 
 Distribute a the connection information for another instance to each of the attendees.
 

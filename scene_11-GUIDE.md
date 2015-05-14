@@ -4,7 +4,11 @@
 
 #### Find or Create a Cookbook to Manage a Proxy Server
 
-At this point they have composed two cookbooks and we start the conversation proposing that we write a third. We tell them this is a path that we could explore another day. Instead we are going to focus them towards using a community cookbook.
+At this point they have composed two cookbooks and we start the conversation proposing that we write a third.
+
+We tell them this is a path that we could explore another day. Instead we are going to focus them towards using a community cookbook.
+
+> Another possible route is to start first with the goal of creating a proxy cookbook. Then stopping and realizing the amount of effort. Deciding to use haproxy but realize that you would need to override values. Change this cookbook's goal to be a wrapper cookbook. Specify haproxy as a dependency and then use berks to install it. (One problem: Naming a cookbook to be wrapper cookbook is different than naming a cookbook for an application).
 
 This part of the journey is currently hard to perform without assistance from you. You have to give them the name of the application: haproxy. Another proxy server may work but will need to be tested to make sure it is configurable with the Operating System (OS) of the target node.
 

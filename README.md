@@ -42,6 +42,7 @@ After the first day the attendees are shown how to manage multiple nodes and coo
 
 Requirements:
 
+* ONE (1) Ubuntu 14.04 Instance from Day 1
 * TWO (2) Ubuntu 14.04 Instance
 
 
@@ -55,53 +56,100 @@ https://drive.google.com/drive/u/0/folders/0BxSqvX6gSnKCSFpvUHI3Xzl0alE/0B1nt6eQ
 
 ### Day 1
 
-#### [01](scene_01.md) Chef Fundamentals
+#### [01] Introduction
 
-#### [02](scene_02.md) Getting a Workstation
+[Guide](scene_01-GUIDE.md) | [Script](scene_01-SCRIPT.md)
 
-#### [03](scene_03.md) Resources
+#### [02] Getting a Workstation
+
+[Guide](scene_02-GUIDE.md) | [Script](scene_02-SCRIPT.md)
+
+#### [03] Resources
+
+[Guide](scene_03-GUIDE.md) | [Script](scene_03-SCRIPT.md)
 
 https://asciinema.org/a/a92xcpd00enl35op3ucccixry
 
-#### [04](scene_04.md) Cookbooks
+#### [04] Cookbooks
+
+[Guide](scene_04-GUIDE.md) | [Script](scene_04-SCRIPT.md)
 
 https://asciinema.org/a/4l9m41z4shlalyjgkkfiwo41j
 
-#### [05](scene_05.md) chef-client
+#### [05] chef-client
+
+[Guide](scene_05-GUIDE.md) | [Script](scene_05-SCRIPT.md)
 
 https://asciinema.org/a/df9g6ju1laqp0htp850wxfj16
 
-#### [06](scene_06.md) Testing Cookbooks
+#### [06] Testing Cookbooks
+
+[Guide](scene_06-GUIDE.md) | [Script](scene_06-SCRIPT.md)
 
 https://asciinema.org/a/13lrjzutoyhqsmexymz6oofwf
 
-#### [07](scene_07.md) Attributes
+#### [07] Attributes
+
+[Guide](scene_07-GUIDE.md) | [Script](scene_07-SCRIPT.md)
 
 https://asciinema.org/a/73qzy6dy84f7u94o7dn4na5w0
 
-#### [08](scene_08.md) Separating Desired State and Data
+#### [08] Separating Desired State and Data
+
+[Guide](scene_08-GUIDE.md) | [Script](scene_08-SCRIPT.md)
 
 https://asciinema.org/a/972ps9ydu9iw1cekfx3p5dua0
 
-#### [09](scene_09.md) Workstation Installation
+#### [09] Workstation Installation
+
+[Guide](scene_09-GUIDE.md) | [Script](scene_09-SCRIPT.md)
 
 ### Day 2
 
-#### [10](scene_10.md) Connecting To Chef Server
+#### [10] Connecting To Chef Server
 
-#### [11](scene_11.md) Community Cookbooks
+[Guide](scene_10-GUIDE.md) | [Script](scene_10-SCRIPT.md)
 
-#### [12](scene_12.md) Managing Multiple Nodes
+#### [11] Community Cookbooks
 
-#### [13](scene_13.md) Roles
+[Guide](scene_11-GUIDE.md) | [Script](scene_11-SCRIPT.md)
 
-#### [14](scene_14.md) Search
+#### [12] Managing Multiple Nodes
 
-#### [15](scene_15.md) Environments
+[Guide](scene_12-GUIDE.md) | [Script](scene_12-SCRIPT.md)
 
-#### [16](scene_16.md) Wrap Up
+#### [13] Roles
 
-#### [17](scene_17.md) Further Resources
+[Guide](scene_13-GUIDE.md) | [Script](scene_13-SCRIPT.md)
+
+#### [14] Search
+
+[Guide](scene_14-GUIDE.md) | [Script](scene_14-SCRIPT.md)
+
+#### [15] Environments
+
+[Guide](scene_15-GUIDE.md) | [Script](scene_15-SCRIPT.md)
+
+### Day 3
+
+#### [16] Releases
+
+[Guide](scene_16-GUIDE.md) | [Script](scene_16-SCRIPT.md)
+
+
+### Appendix
+
+#### [A] Further Resources
+
+[Guide](scene_further_resources-GUIDE.md) | [Script](scene_further_resources-SCRIPT.md)
+
+#### [B] Day 1 Wrap Up
+
+[Guide](scene_day_one_wrap_up-GUIDE.md) | [Script](scene_day_one_wrap_up-SCRIPT.md)
+
+#### [C] Day 2 Wrap Up
+
+[Guide](scene_day_two_wrap_up-GUIDE.md) | [Script](scene_day_two_wrap_up-SCRIPT.md)
 
 
 ## Contributing
@@ -110,7 +158,7 @@ Each scene is deliverable. Allowing for the development and refinement of scenes
 
 Please refer to the [issues](https://github.com/learnchef/chefdk-fundamentals/issues) to figure out what sections could use your attention.
 
-* Found an issue with the slides - Open an issue. When you open the issue: 1) include a picture of the slide and information to identify its location (e.g. section name/number, slide number).
+* Found an issue with the slides - Open an issue. When you open the issue: 1) include a picture of the slide and information to identify its location (e.g. section name/number, slide number). 2) Include the version of the slide deck you are using.
 
 > The reason to open up issues an include the fix is because there is no good way to merge binary files. It would awful if you made changes to the same presentation file as someone else. It would be hard to find the differences.
 

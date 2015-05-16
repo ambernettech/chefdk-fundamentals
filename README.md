@@ -56,83 +56,83 @@ https://drive.google.com/drive/u/0/folders/0BxSqvX6gSnKCSFpvUHI3Xzl0alE/0B1nt6eQ
 
 ### Day 1
 
-#### [01] Introduction
+#### 01 Introduction
 
 [Guide](scene_01-GUIDE.md) | [Script](scene_01-SCRIPT.md)
 
-#### [02] Getting a Workstation
+#### 02 Getting a Workstation
 
 [Guide](scene_02-GUIDE.md) | [Script](scene_02-SCRIPT.md)
 
-#### [03] Resources
+#### 03 Resources
 
 [Guide](scene_03-GUIDE.md) | [Script](scene_03-SCRIPT.md)
 
 https://asciinema.org/a/a92xcpd00enl35op3ucccixry
 
-#### [04] Cookbooks
+#### 04 Cookbooks
 
 [Guide](scene_04-GUIDE.md) | [Script](scene_04-SCRIPT.md)
 
 https://asciinema.org/a/4l9m41z4shlalyjgkkfiwo41j
 
-#### [05] chef-client
+#### 05 chef-client
 
 [Guide](scene_05-GUIDE.md) | [Script](scene_05-SCRIPT.md)
 
 https://asciinema.org/a/df9g6ju1laqp0htp850wxfj16
 
-#### [06] Testing Cookbooks
+#### 06 Testing Cookbooks
 
 [Guide](scene_06-GUIDE.md) | [Script](scene_06-SCRIPT.md)
 
 https://asciinema.org/a/13lrjzutoyhqsmexymz6oofwf
 
-#### [07] Attributes
+#### 07 Attributes
 
 [Guide](scene_07-GUIDE.md) | [Script](scene_07-SCRIPT.md)
 
 https://asciinema.org/a/73qzy6dy84f7u94o7dn4na5w0
 
-#### [08] Separating Desired State and Data
+#### 08 Separating Desired State and Data
 
 [Guide](scene_08-GUIDE.md) | [Script](scene_08-SCRIPT.md)
 
 https://asciinema.org/a/972ps9ydu9iw1cekfx3p5dua0
 
-#### [09] Workstation Installation
+#### 09 Workstation Installation
 
 [Guide](scene_09-GUIDE.md) | [Script](scene_09-SCRIPT.md)
 
 ### Day 2
 
-#### [10] Connecting To Chef Server
+#### 10 Connecting To Chef Server
 
 [Guide](scene_10-GUIDE.md) | [Script](scene_10-SCRIPT.md)
 
-#### [11] Community Cookbooks
+#### 11 Community Cookbooks
 
 [Guide](scene_11-GUIDE.md) | [Script](scene_11-SCRIPT.md)
 
-#### [12] Managing Multiple Nodes
+#### 12 Managing Multiple Nodes
 
 [Guide](scene_12-GUIDE.md) | [Script](scene_12-SCRIPT.md)
 
-#### [13] Roles
+#### 13 Roles
 
 [Guide](scene_13-GUIDE.md) | [Script](scene_13-SCRIPT.md)
 
-#### [14] Search
+#### 14 Search
 
 [Guide](scene_14-GUIDE.md) | [Script](scene_14-SCRIPT.md)
 
-#### [15] Environments
+#### 15 Environments
 
 [Guide](scene_15-GUIDE.md) | [Script](scene_15-SCRIPT.md)
 
 ### Day 3
 
-#### [16] Releases
+#### 16 Releases
 
 [Guide](scene_16-GUIDE.md) | [Script](scene_16-SCRIPT.md)
 

@@ -11,7 +11,7 @@ Each section has:
 
 * Slides - the content to display to the attendees while teaching the concept
 * Script - an example of the words you might use to describe the content to attendees
-* Guide - additional information about how to lead that section of content 
+* Guide - additional information about how to lead that section of content
 
 
 ## Teaching
@@ -182,3 +182,22 @@ Please refer to the [issues](https://github.com/learnchef/chefdk-fundamentals/is
 * Writing the scene slides - If the slides aren't there then welcome to exciting world of Powerpoint. Hey if you don't have Powerpoint but have a great idea for slides -- do it anyways, because great content is great content.
 
 * Edit the scene slides - I can't tell you the joy comes from reading the scene text and then looking over the slides. You see all the missing holes and that one little area that could use a little of your pixie dust. Remember slide decks only get better with a little love.
+
+
+## Releasing
+
+Right now the releasing process is manual. There are templates named after the day that they represent. Each of the section presentations currently have to be imported into them.
+
+### Day 1
+
+* Open the **day1.pptx**. From PowerPoint insert the slides from each of those sections into the presentation (Insert > Slides From ... > Other Presentation).
+
+* Save it as **chefdk-introduction_to_chefdk.pptx**
+
+* Archive **chefdk-introduction_to_chefdk.pptx** with all of the appropriate section GUIDES and the SCRIPTS.
+
+There is a rake task that will perform the archiving for you:
+
+```
+$ rake package:day1
+```

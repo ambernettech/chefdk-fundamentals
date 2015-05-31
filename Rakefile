@@ -170,6 +170,9 @@ namespace :ppt do
     end.max    
   end
 
+  #
+  # In the previous step we place all the slides into xml file in the last 
+  # section. We 
   def reorganize_slides_in_presentation(section,slide_count)
     data = Nokogiri::XML(File.read("day_one/ppt/presentation.xml"))
     # Fix to make it so I can xpath to the section lists
@@ -183,9 +186,10 @@ namespace :ppt do
       starting_index = (index * 2) + ((index + 1) > section ? slide_count : 0)
       finishing_index = starting_index + ((index + 1) == section ? slide_count + 1 : 1)
 
-      puts "Setting section #{index + 1} to have slides #{starting_index}..#{finishing_index}"
+      puts "[++] Section #{index + 1} to have slides #{starting_index}..#{finishing_index}"
+      puts "[??] #{slides[starting_index]}"
+      puts "[??] #{slides[finishing_index]}"
       section_list.children = slides[starting_index..finishing_index]
-      puts section_list.children.count
     end
 
     File.write("day_one/ppt/presentation.xml",data.to_xml)
@@ -206,7 +210,7 @@ namespace :ppt do
     slide_id_entry = Nokogiri::XML::Node.new "p:sldId", data
     slide_id_entry["id"] = slide_id
     slide_id_entry["r:id"] = relationship_id
-    # puts slide_id_entry
+    puts "[??] Inserting slide id:#{slide_id} r:id:#{relationship_id}"
     slide_id_list.xpath("p:sldId").last.add_next_sibling(slide_id_entry)
 
     # Add a new entry to the appropriate section (section_number)
@@ -215,8 +219,7 @@ namespace :ppt do
     slide_entry = Nokogiri::XML::Node.new "p14:sldId", data
     slide_entry["id"] = slide_id
 
-    section_slide_id_list.xpath("p14:sldId").last.add_previous_sibling(slide_entry)
-
+    section_slide_id_list.xpath("p14:sldId").last.add_next_sibling(slide_entry)
     # puts section_slide_id_list
     File.write("day_one/ppt/presentation.xml",data.to_xml)
   end

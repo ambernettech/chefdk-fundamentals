@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe Powerpoint::Presentation do
 
-  it "can be created" do
-    expect { subject }.to_not raise_error
-  end
-
   context "when loading a presentation that exists" do
 
     before do
@@ -66,6 +62,29 @@ describe Powerpoint::Presentation do
           Powerpoint::PresentationMerger.merge(subject,other_presentation,1)
           first_section_slide_count = subject.sections.first.slides.count
           expect(first_section_slide_count).to eq(13)
+
+        end
+      end
+
+      context "when adding slides to both sections" do
+
+        before do
+          `rm -rf scene_01`
+          `rm -rf scene_02`
+        end
+
+        let(:first_presenation) { Powerpoint::Presentation.new("scene_01-SLIDES.pptx") }
+        let(:second_presenation) { Powerpoint::Presentation.new("scene_02-SLIDES.pptx") }
+
+        it "correctly adds the slides to each section" do
+
+          Powerpoint::PresentationMerger.merge(subject,first_presenation,1)
+          first_section_slide_count = subject.sections.first.slides.count
+          expect(first_section_slide_count).to eq(13)
+
+          Powerpoint::PresentationMerger.merge(subject,second_presenation,2)
+          second_section_slide_count = subject.sections[1].slides.count
+          expect(second_section_slide_count).to eq(8)
 
         end
       end

@@ -18,7 +18,7 @@ module Powerpoint
     def slides
       data = Nokogiri::XML(File.read(presentation_filepath))
       data.root.add_namespace "p14", "http://schemas.microsoft.com/office/powerpoint/2010/main"
-      data.xpath("//p:sldIdLst").children
+      data.xpath("//p:sldIdLst/p:sldId")
     end
 
   end

@@ -16,6 +16,8 @@ module Powerpoint
       merge_into_section(options[:section])
     end
 
+    private
+
     def merge_into_section(section_number)
 
       slides_to_insert_count = presentation.slides.count
@@ -38,8 +40,11 @@ module Powerpoint
 
       (total_slide_count + 1 .. total_slide_count + slides_to_insert_count).each do |num|
         puts "[+] Adding [Content_Types].xml entry for slide #{num}"
-        add_slide_to_content_type(outline_presentation,num)
+        outline_presentation.content_type.add_slide(num)
       end
+
+      outline_presentation.content_type.save
+
 
       # updated the ppt/_rels/presentation.xml.rels
       #   - slide entry
@@ -54,7 +59,8 @@ module Powerpoint
 
       (total_slide_count + 1 .. total_slide_count + slides_to_insert_count).each do |num|
         puts "[+] Adding ppt/_rels/presentation.xml.rels entry for slide #{num}"
-        add_slide_to_presentation_relationships(outline_presentation,num)
+        outline_presentation.relationships.add_slide(num)
+        outline_presentation.relationships.save
       end
 
       finishing_relationship_id = outline_presentation.highest_relationship_id
@@ -66,7 +72,8 @@ module Powerpoint
       #   - slide id in the extList
       ((starting_relationship_id + 1)..finishing_relationship_id).each do |num|
         puts "[+] Adding ppt/presentation.xml entry for slide rId#{num} into section #{section_number}"
-        add_slide_to_presentation(outline_presentation,num,section_number)
+        outline_presentation.presentation.add_slide(num,section_number)
+        outline_presentation.presentation.save
       end
     end
 
@@ -89,81 +96,6 @@ module Powerpoint
         dest_filepath = "#{destination_presentation.target_filepath}/#{partial_path}/slide#{num + insertion_point - 1}.#{extension}"
         my_move(source_filepath,dest_filepath)
       end
-    end
-
-    def add_slide_to_content_type(presentation,num)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/[Content_Types].xml"))
-      types_node = data.children.first
-
-      slide = Nokogiri::XML::Node.new "Override", data
-      slide["ContentType"] = "application/vnd.openxmlformats-officedocument.presentationml.slide+xml"
-      slide["PartName"] = "/ppt/slides/slide#{num}.xml"
-      # puts slide.to_s
-      types_node.add_child(slide)
-
-      File.write("#{presentation.target_filepath}/[Content_Types].xml",data.to_xml)
-    end
-
-    def add_slide_to_presentation_relationships(presentation,num)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels"))
-      relationships_node = data.children.first
-
-      relationship = Nokogiri::XML::Node.new "Relationship", data
-      relationship["Id"] = "rId#{presentation.highest_relationship_id + 1}"
-      relationship["Target"] = "slides/slide#{num}.xml"
-      relationship["Type"] = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide"
-      #puts relationship.to_s
-      relationships_node.add_child(relationship)
-
-      File.write("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels",data.to_xml)
-    end
-
-    def add_slide_to_presentation(presentation,num,section_number)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/presentation.xml"))
-      # Fix to make it so I can xpath to the section lists
-      data.root.add_namespace "p14", "http://schemas.microsoft.com/office/powerpoint/2010/main"
-
-      relationship_id = "rId#{num}"
-      slide_id = presentation.highest_slide_id + 1
-
-      # Add a new entry to the Slide Id List
-      slide_id_list = data.xpath("//p:sldIdLst").first
-
-      slide_id_entry = Nokogiri::XML::Node.new "p:sldId", data
-      slide_id_entry["id"] = slide_id
-      slide_id_entry["r:id"] = relationship_id
-      puts "[??] Inserting slide id:#{slide_id} #{relationship_id}"
-      slide_id_list.xpath("p:sldId").last.add_next_sibling(slide_id_entry)
-
-      # from the target section_number start there and have it grab a slide from the next section
-      #   if there is a next section
-      # That section needs to lose the slide
-      # We continue to do that until we run out of sections
-      section_slide_id_lists = data.xpath("//p:ext/p14:sectionLst/p14:section/p14:sldIdLst")[(section_number - 1)..-1]
-
-      section_slide_id_lists.each_with_index do |section,index|
-        next_section = section_slide_id_lists[index + 1]
-        next unless next_section
-
-        next_section_slide = next_section.xpath("p14:sldId").first
-
-        slides_in_current_section = section.xpath("p14:sldId")
-        slides_in_current_section.last.add_next_sibling(next_section_slide)
-      end
-
-
-      slide_entry = Nokogiri::XML::Node.new "p14:sldId", data
-      slide_entry["id"] = slide_id
-
-      slide_entry.parent = section_slide_id_lists.last
-
-      # Add a new entry to the last section and we allow another process to re-organize it
-      # section_slide_id_list = data.xpath("//p:ext/p14:sectionLst/p14:section/p14:sldIdLst")
-
-
-      # section_slide_id_list.xpath("p14:sldId").last.add_next_sibling(slide_entry)
-      # puts section_slide_id_list
-      File.write("#{presentation.target_filepath}/ppt/presentation.xml",data.to_xml)
     end
 
   end

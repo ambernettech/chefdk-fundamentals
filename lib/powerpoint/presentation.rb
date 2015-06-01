@@ -47,5 +47,17 @@ module Powerpoint
       Powerpoint::PresentationMerger.new(self,other_presentation)
     end
 
+    def content_type
+      @content_type ||= FileSystem::ContentTypes.new(self)
+    end
+
+    def relationships
+      @relationships ||= FileSystem::PresentationRelationships.new(self)
+    end
+
+    def presentation
+      @presentation ||= FileSystem::Presentation.new(self)
+    end
+
   end
 end

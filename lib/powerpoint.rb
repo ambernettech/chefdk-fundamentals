@@ -8,6 +8,10 @@ require 'powerpoint/section'
 require 'powerpoint/outline_presentation'
 require 'powerpoint/presentation_merger'
 
+require 'powerpoint/filesystem/content_types'
+require 'powerpoint/filesystem/presentation_relationships'
+require 'powerpoint/filesystem/presentation'
+
 module Powerpoint
 
   def self.decompress in_path, out_path

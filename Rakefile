@@ -87,7 +87,7 @@ namespace :ppt do
     (1..9).map {|num| "scene_%02d-SLIDES.pptx" % num }.each_with_index do |presentation_file,index|
       presentation = Powerpoint::Presentation.new(presentation_file)
       section = index + 1
-      Powerpoint::PresentationMerger.merge(outline,presentation,section)
+      outline.merge(presentation).into(section: section)
     end
 
     Powerpoint.compress("day_one","chefdk-introduction_to_chefdk.pptx")

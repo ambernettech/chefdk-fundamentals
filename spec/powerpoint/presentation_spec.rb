@@ -67,7 +67,9 @@ describe Powerpoint::Presentation do
 
         it "adds the slides into the appropriate section" do
 
-          Powerpoint::PresentationMerger.merge(subject,other_presentation,1)
+          subject.merge(other_presentation).into(section: 1)
+
+          # Powerpoint::PresentationMerger.merge(subject,other_presentation,1)
           first_section_slide_count = subject.sections.first.slides.count
           expect(first_section_slide_count).to eq(13)
 
@@ -81,16 +83,16 @@ describe Powerpoint::Presentation do
           `rm -rf scene_02`
         end
 
-        let(:first_presenation) { Powerpoint::Presentation.new("scene_01-SLIDES.pptx") }
-        let(:second_presenation) { Powerpoint::Presentation.new("scene_02-SLIDES.pptx") }
+        let(:first_presentation) { Powerpoint::Presentation.new("scene_01-SLIDES.pptx") }
+        let(:second_presentation) { Powerpoint::Presentation.new("scene_02-SLIDES.pptx") }
 
         it "correctly adds the slides to each section" do
 
-          Powerpoint::PresentationMerger.merge(subject,first_presenation,1)
+          subject.merge(first_presentation).into(section: 1)
           first_section_slide_count = subject.sections.first.slides.count
           expect(first_section_slide_count).to eq(13)
 
-          Powerpoint::PresentationMerger.merge(subject,second_presenation,2)
+          subject.merge(second_presentation).into(section: 2)
           second_section_slide_count = subject.sections[1].slides.count
           expect(second_section_slide_count).to eq(8)
 

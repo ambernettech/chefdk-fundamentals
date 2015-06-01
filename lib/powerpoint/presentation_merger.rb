@@ -1,33 +1,26 @@
 module Powerpoint
-  module PresentationMerger
-    extend self
+  # outline_presentation.merge(presentation).into(section: section_number, after: { slide: 1 })
+  class PresentationMerger
 
-    def my_move(source,destination)
-      `mv #{source} #{destination}`
-      # puts "mv #{source} #{destination}"
+    def initialize(source_presentation,other_presentation)
+      @source_presentation = source_presentation
+      @other_presentation = other_presentation
     end
 
-    def shift_slides(presentation,partial_path,extension,insertion_point,total_slide_count,shift)
-      (insertion_point..total_slide_count).to_a.reverse.each do |mover|
-        source_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover}.#{extension}"
-        dest_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover + shift}.#{extension}"
-        my_move(source_filepath,dest_filepath)
-      end
+    attr_reader :source_presentation, :other_presentation
+
+    alias_method :outline_presentation, :source_presentation
+    alias_method :presentation, :other_presentation
+
+    def into(options)
+      merge_into_section(options[:section])
     end
 
-    def copy_slides(source_presentation,destination_presentation,partial_path,extension,insertion_point,start,finish)
-      (start..finish).each do |num|
-        source_filepath = "#{source_presentation.target_filepath}/#{partial_path}/slide#{num}.#{extension}"
-        dest_filepath = "#{destination_presentation.target_filepath}/#{partial_path}/slide#{num + insertion_point - 1}.#{extension}"
-        my_move(source_filepath,dest_filepath)
-      end
-    end
-
-    def merge(outline_presentation,presentation,section_number)
+    def merge_into_section(section_number)
 
       slides_to_insert_count = presentation.slides.count
 
-      insertion_point = find_slide_insertion_point_in_section(outline_presentation,section_number)
+      insertion_point = outline_presentation.slide_insertion_point_in_section(section_number)
       total_slide_count = outline_presentation.slides.count
 
       puts "[?] In outline presentation I am shifting slides by #{slides_to_insert_count} starting at #{insertion_point} to #{total_slide_count}"
@@ -75,43 +68,27 @@ module Powerpoint
         puts "[+] Adding ppt/presentation.xml entry for slide rId#{num} into section #{section_number}"
         add_slide_to_presentation(outline_presentation,num,section_number)
       end
-
     end
 
+    def my_move(source,destination)
+      `mv #{source} #{destination}`
+      # puts "mv #{source} #{destination}"
+    end
 
-    def find_slide_insertion_point_in_section(presentation,section_number)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/presentation.xml"))
-      data.root.add_namespace "p14", "http://schemas.microsoft.com/office/powerpoint/2010/main"
+    def shift_slides(presentation,partial_path,extension,insertion_point,total_slide_count,shift)
+      (insertion_point..total_slide_count).to_a.reverse.each do |mover|
+        source_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover}.#{extension}"
+        dest_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover + shift}.#{extension}"
+        my_move(source_filepath,dest_filepath)
+      end
+    end
 
-      # find the first slide in the specified section of the presentation xm
-      section_lists = data.xpath("//p:ext/p14:sectionLst/p14:section/p14:sldIdLst")
-
-
-      section = section_lists[section_number - 1]
-      slide_id_to_insert_after = section.xpath("p14:sldId").first["id"]
-
-      # puts "    [??] Finding Insertion point in section #{section_number} #{slide_id_to_insert_after}"
-
-      # then I need to convert that slide number into the relationship_id
-      slide = data.xpath("//p:sldIdLst/p:sldId").find { |slide| slide["id"] == slide_id_to_insert_after }
-      relative_id_to_insert_after = slide["r:id"]
-
-      # puts "    [??] Inserting slides after slide with #{relative_id_to_insert_after}"
-
-      # with that relationship id I need to convert that to a file name
-      rels_data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels"))
-      relationship_to_insert_after = rels_data.xpath("//xmlns:Relationship[@Id='#{relative_id_to_insert_after}']")
-      filepath_to_insert_after = relationship_to_insert_after.first["Target"]
-
-      # puts "    [??] Inserting slides after slide with filepath #{filepath_to_insert_after}"
-
-      # from that file name I need to take that file name slide number and add one
-      file_number_to_insert_after = filepath_to_insert_after.match(/\d+/)[0].to_i
-
-      slide_insertion_point = file_number_to_insert_after + 1
-
-      puts "    [??] Inserting slides after #{slide_insertion_point}"
-      slide_insertion_point
+    def copy_slides(source_presentation,destination_presentation,partial_path,extension,insertion_point,start,finish)
+      (start..finish).each do |num|
+        source_filepath = "#{source_presentation.target_filepath}/#{partial_path}/slide#{num}.#{extension}"
+        dest_filepath = "#{destination_presentation.target_filepath}/#{partial_path}/slide#{num + insertion_point - 1}.#{extension}"
+        my_move(source_filepath,dest_filepath)
+      end
     end
 
     def add_slide_to_content_type(presentation,num)
@@ -188,5 +165,6 @@ module Powerpoint
       # puts section_slide_id_list
       File.write("#{presentation.target_filepath}/ppt/presentation.xml",data.to_xml)
     end
+
   end
 end

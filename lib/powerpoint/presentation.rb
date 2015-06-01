@@ -43,5 +43,9 @@ module Powerpoint
       end.compact.max
     end
 
+    def merge(other_presentation)
+      Powerpoint::PresentationMerger.new(self,other_presentation)
+    end
+
   end
 end

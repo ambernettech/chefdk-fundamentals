@@ -14,7 +14,7 @@ instance_eval(File.read("metadata.rb"))
 
 namespace :package do
 
-  desc "Create a packge for ChefDK Fundamentals - Day 1"
+  desc "Create a package for ChefDK Fundamentals - Day 1"
   task :day1 do
 
     complete_presentation_filename = 'chefdk-introduction_to_chefdk.pptx'
@@ -26,20 +26,17 @@ namespace :package do
     puts """
 ********************************************************************************
 
-  YOU need to create the day 1 presentation from the following chapters:
+  Creating the Day 1 presentation from the following chapters:
 
   * Open 'day_one.pptx'
   * Insert 'scene_#{scene_numbers.first}-SLIDES.pptx' into through 'scene_#{scene_numbers.last}-SLIDES.pptx'
     into the appropriate sections in the template
   * Save the file as '#{complete_presentation_filename}'
 
-  PRESS <ENTER> when READY
-  PRESS <ESC> to QUIT
-
 ********************************************************************************
 """
 
-    wait = STDIN.gets
+    Rake::Task["ppt:merge"].invoke
 
     puts """
 ********************************************************************************
@@ -93,11 +90,12 @@ namespace :ppt do
       Powerpoint::PresentationMerger.merge(outline,presentation,section)
     end
 
+    Powerpoint.compress("day_one","chefdk-introduction_to_chefdk.pptx")
+
     # Clean Up
     (1..9).map {|num| "scene_%02d-SLIDES" % num }.each {|path| `rm -rf #{path}` }
     `rm -rf day_one`
 
-    Powerpoint.compress("day_one","day_one-complete.pptx")
   end
 
 

@@ -13,6 +13,14 @@ describe Powerpoint::Presentation do
     it "has the correct slide count" do
       expect(subject.slides.count).to eq(11)
     end
+
+    it "knows its highest slide id" do
+      expect(subject.highest_slide_id).to eq(267)
+    end
+
+    it "knows its highest presentation relationship id" do
+      expect(subject.highest_relationship_id).to eq(23)
+    end
   end
 
   context "when loading an outline presentation that exists" do

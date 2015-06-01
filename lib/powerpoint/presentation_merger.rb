@@ -55,7 +55,7 @@ module Powerpoint
       #   relationships added and then for all the relationship_ids to be rebuilt
 
       # Find the highest relationship_id
-      starting_relationship_id = fetch_highest_relationship_id(outline_presentation)
+      starting_relationship_id = outline_presentation.highest_relationship_id
 
       puts "[?] Relationships Starting Count : #{starting_relationship_id}"
 
@@ -64,7 +64,7 @@ module Powerpoint
         add_slide_to_presentation_relationships(outline_presentation,num)
       end
 
-      finishing_relationship_id = fetch_highest_relationship_id(outline_presentation)
+      finishing_relationship_id = outline_presentation.highest_relationship_id
 
       puts "[?] Relationships Finishing Count :#{finishing_relationship_id}"
 
@@ -90,27 +90,27 @@ module Powerpoint
       section = section_lists[section_number - 1]
       slide_id_to_insert_after = section.xpath("p14:sldId").first["id"]
 
-      puts "    [??] Finding Insertion point in section #{section_number} #{slide_id_to_insert_after}"
+      # puts "    [??] Finding Insertion point in section #{section_number} #{slide_id_to_insert_after}"
 
       # then I need to convert that slide number into the relationship_id
       slide = data.xpath("//p:sldIdLst/p:sldId").find { |slide| slide["id"] == slide_id_to_insert_after }
       relative_id_to_insert_after = slide["r:id"]
 
-      puts "    [??] Inserting slides after slide with #{relative_id_to_insert_after}"
+      # puts "    [??] Inserting slides after slide with #{relative_id_to_insert_after}"
 
       # with that relationship id I need to convert that to a file name
       rels_data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels"))
       relationship_to_insert_after = rels_data.xpath("//xmlns:Relationship[@Id='#{relative_id_to_insert_after}']")
       filepath_to_insert_after = relationship_to_insert_after.first["Target"]
 
-      puts "    [??] Inserting slides after slide with filepath #{filepath_to_insert_after}"
+      # puts "    [??] Inserting slides after slide with filepath #{filepath_to_insert_after}"
 
       # from that file name I need to take that file name slide number and add one
       file_number_to_insert_after = filepath_to_insert_after.match(/\d+/)[0].to_i
 
       slide_insertion_point = file_number_to_insert_after + 1
 
-      puts "    [??] Inserting slides after slides after #{slide_insertion_point}"
+      puts "    [??] Inserting slides after #{slide_insertion_point}"
       slide_insertion_point
     end
 
@@ -132,7 +132,7 @@ module Powerpoint
       relationships_node = data.children.first
 
       relationship = Nokogiri::XML::Node.new "Relationship", data
-      relationship["Id"] = "rId#{fetch_highest_relationship_id(presentation) + 1}"
+      relationship["Id"] = "rId#{presentation.highest_relationship_id + 1}"
       relationship["Target"] = "slides/slide#{num}.xml"
       relationship["Type"] = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide"
       #puts relationship.to_s
@@ -141,30 +141,13 @@ module Powerpoint
       File.write("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels",data.to_xml)
     end
 
-    def fetch_highest_relationship_id(presentation)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/_rels/presentation.xml.rels"))
-
-      data.xpath("//xmlns:Relationship").map do |relationship|
-        relationship["Id"].gsub("rId","").to_i
-      end.compact.max
-    end
-
-    def fetch_highest_slide_id(presentation)
-      data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/presentation.xml"))
-      slide_id_list = data.xpath("//p:sldIdLst")
-
-      slide_id_list.children.map do |slide_id|
-         slide_id["id"].to_i
-      end.max
-    end
-
     def add_slide_to_presentation(presentation,num,section_number)
       data = Nokogiri::XML(File.read("#{presentation.target_filepath}/ppt/presentation.xml"))
       # Fix to make it so I can xpath to the section lists
       data.root.add_namespace "p14", "http://schemas.microsoft.com/office/powerpoint/2010/main"
 
       relationship_id = "rId#{num}"
-      slide_id = fetch_highest_slide_id(presentation) + 1
+      slide_id = presentation.highest_slide_id + 1
 
       # Add a new entry to the Slide Id List
       slide_id_list = data.xpath("//p:sldIdLst").first

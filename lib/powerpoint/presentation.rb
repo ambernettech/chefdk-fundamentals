@@ -21,5 +21,27 @@ module Powerpoint
       data.xpath("//p:sldIdLst/p:sldId")
     end
 
+    def highest_slide_id
+      slide_id_list = presentation_xml.xpath("//p:sldIdLst")
+
+      slide_id_list.children.map do |slide_id|
+         slide_id["id"].to_i
+      end.max
+    end
+
+    def presentation_rels_filepath
+      "#{target_filepath}/ppt/_rels/presentation.xml.rels"
+    end
+
+    def presentation_rels_xml
+      Nokogiri::XML(File.read(presentation_rels_filepath))
+    end
+
+    def highest_relationship_id
+      presentation_rels_xml.xpath("//xmlns:Relationship").map do |relationship|
+        relationship["Id"].gsub("rId","").to_i
+      end.compact.max
+    end
+
   end
 end

@@ -1,5 +1,5 @@
 module Powerpoint
-  module FileSystem
+  class FileSystem
 
     class ContentTypes
 

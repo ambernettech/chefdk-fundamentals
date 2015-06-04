@@ -8,9 +8,9 @@ require 'powerpoint/section'
 require 'powerpoint/outline_presentation'
 require 'powerpoint/presentation_merger'
 
-require 'powerpoint/filesystem/content_types'
-require 'powerpoint/filesystem/presentation_relationships'
-require 'powerpoint/filesystem/presentation'
+require 'powerpoint/file_system/content_types'
+require 'powerpoint/file_system/presentation_relationships'
+require 'powerpoint/file_system/presentation'
 
 module Powerpoint
 

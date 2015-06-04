@@ -1,5 +1,5 @@
 module Powerpoint
-  module FileSystem
+  class FileSystem
 
     class PresentationRelationships
       def initialize(presentation)

@@ -77,16 +77,20 @@ module Powerpoint
       end
     end
 
-    def my_move(source,destination)
+    def move(source,destination)
       `mv #{source} #{destination}`
       # puts "mv #{source} #{destination}"
+    end
+
+    def copy(source,destination)
+      `cp #{source} #{destination}`
     end
 
     def shift_slides(presentation,partial_path,extension,insertion_point,total_slide_count,shift)
       (insertion_point..total_slide_count).to_a.reverse.each do |mover|
         source_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover}.#{extension}"
         dest_filepath = "#{presentation.target_filepath}/#{partial_path}/slide#{mover + shift}.#{extension}"
-        my_move(source_filepath,dest_filepath)
+        move(source_filepath,dest_filepath)
       end
     end
 
@@ -94,7 +98,7 @@ module Powerpoint
       (start..finish).each do |num|
         source_filepath = "#{source_presentation.target_filepath}/#{partial_path}/slide#{num}.#{extension}"
         dest_filepath = "#{destination_presentation.target_filepath}/#{partial_path}/slide#{num + insertion_point - 1}.#{extension}"
-        my_move(source_filepath,dest_filepath)
+        copy(source_filepath,dest_filepath)
       end
     end
 

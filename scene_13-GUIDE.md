@@ -27,3 +27,5 @@ Check in the role to version control.
 As an exercise have them define a new role, add that role to each of the nodes, run `chef-client` on those two nodes.
 
 Check in the role to version control.
+
+> NOTE: This is one of those things where another cookbook and activity would be great. In the previous material we had the attendees create a base role and add some cookbooks to that which were common across all the nodes. I would like to do that here, however, we don't have an easy way to download a community cookbook with all of its dependencies and upload it to the Chef Server.

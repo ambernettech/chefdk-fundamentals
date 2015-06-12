@@ -1,14 +1,28 @@
 ## Connecting to Chef Server
 
-We accomplished a lot during the first day. We created two cookbooks. One to setup workstations with our tools. And a second cookbook that setup a web server that delivered a "Hello, world!" message with somer pertinent information about our system.
+We accomplished a lot during the first day. We created two cookbooks. One to setup workstations with our tools. And a second cookbook that setup a web server that delivered a "Hello, world!" message with some1 pertinent information about our system.
 
 Later today we will be getting our first release of our launch page. To prepare for it and our eventual launch page we need to prepare for some incoming traffic. So lets walk through what it would take to manage multiple systems.
 
-Currently our cookbook exists on one of our webservers. If we wanted to setup an additional web servers to serve additional traffic for our soon-to-be highly successful website what is the required effort.
+-
 
-Estimate the effort and time it would take to deploy an identical web node.
+Currently our cookbook exists on one of our webservers. If we wanted to setup an additional web servers to serve additional traffic for our soon-to-be highly successful website what steps we would need to take to setup an identical sytem.
 
 -
+
+A new system would require us to provision a new node within our company or appropriate cloud provider with the appropriate access to login to administrate the system.
+
+Install the Chef tools.
+
+Transfer the apache cookbook.
+
+Running chef-client locally to apply the apache cookbook's default recipe.
+
+-
+
+As an exercise roughly estimate the time it would take to accomplish this series of steps of preparing another node.
+
+> Wait to allow a rough estimate
 
 The cost of installing the Chef tools, transfering the apache cookbook, and applying the run list is not terribly expensive.
 
@@ -20,37 +34,55 @@ Applying the run list requires the execution of a command on that system.
 
 -
 
-Imagine that we needed to complete the following steps for multiple web servers. As our site becomes more popular we will want to quickly enable more systems. Before we even solve that problem we will need to learn how to distribute traffic from one server to multiple other servers.
+So the overall time required to setup a new instance is not a massive. This manual process will definitely take its toll when requirements demand we manage more than a few additional nodes.
 
-Lets break down the architecture that we want to build.
+-
 
-Our initial implementation to ensure we are able to handle a large set of users coming to our systems needs to have an initial instance that then forwards requests to a pool of web servers delivering the content. A proxy server that relays traffic to a web server.
+As the popularity of our site grows one server will not be able to keep with all of the requests. We will need to provision additional machines as demand increases and ...
 
-Today we want to set that up. To ensure that it delivers traffic we will also setup an additional web server that we will balance requests to equally. We have the tools and some of the components already created.
+-
 
-We will need to setup a web server. In this case we have the apache cookbook.
+... we will need to develop a way to route incoming traffic to each of these nodes.
 
-We will need a proxy server. This is a cookbook we will have to create or find in the Chef Supermarket.
+-
 
-We will need to have the proxy server know about each web server they proxy traffic towards. Ideally our system would work without our presence or too much intervention. When we turn on a new web server it will automatically appear in the pool of available web servers. This is the kind of automation that will save us a lot of time.
+There are many ways that we can route the traffic from one node to a group of similar nodes. This can be done with services by some of the major cloud providers or it can be done with another instance running as a proxy server.
 
-To manage multiple machines we need to talk about how we are going to deliver Chef tools, cookbooks, and a run list to each of the nodes we want to manage.
+A proxy server allows for us to receive incoming requests and forward those requests to other nodes.
 
-We talked about a few solutions that require us to create our own tools and processes to make that possible. Another way is to use a Chef Server. Chef Server comes in many different flavors. At its core its Open Source. You are welcome to run an Open Source Chef Server which you can also pay us for support. We offer an on-premise Enterprise Chef Server that adds additional functionality and user features (namely the web user-interface). Lastly we have Managed Chef Server - which is a multi-tenant Chef Server that we host as a service. This by far is the quickiest to get started with and is free as long as we remain under the node amount. In our case with three nodes and interest in getting things done quickly, this seems like a good choice.
+Today we are going to set up a proxy server that will direct web requests to similar configured nodes running our default web page that we deploy with the apache cookbook's default recipe.
 
-The first thing that you'll need to do is visit manage.chef.io and sign up for a Managed Chef Account. This setup requires a username, email and a password. From there you will be prompted to create an organization.
+We have one system already configured as our web server. We will need to setup another system. We will also need to setup a node to act as the proxy to both of these two web servers.
+
+-
+
+Whether we tackle installing, configuring, or running a proxy server or recreate a second instance running the apache cookbook's default recipe we will want to solve the problem of how we can manage mulitple systems. Each system will need to have Chef installed, the cookbooks copied onto the system, and a run list of the recipes to apply to the system.
+
+One way to solve that problem is with a Chef Server.
+
+-
+
+Chef Server comes in many different flavors. At the core we offer Chef Server as an open source project freely available for anyone to deploy.
+
+We offer an on-premise Enterprise Chef Server that adds additional functionality and user features (namely the web user-interface).
+
+Lastly we have Managed Chef Server - which is a multi-tenant Chef Server that we host as a service. This by far is the quickiest to get started with and is free as long as we remain under the reasonable node amount.
+
+In the interest of getting things done and a relatively small node count it seems like the the Managed Chef Server option is a great. with three nodes and interest in getting things done quickly, this seems like a good choice.
+
+-
+
+To get started with Managed Chef Server you will need to visit manage.chef.io and sign up for a Managed Chef Account. This setup requires a username, email and a password. From there you will be prompted to create an organization.
+
+-
 
 What is an organization?
 
 An organization is a structure within managed Chef that allows multiple companies or entites to exist on the same Chef Server without our paths ever crossing. You might think of it as like setting up a unique username for your organization. All of the cookbooks, instances and other configuration details that we manage with Chef will be stored on the Chef Server for this particular organization. No other organization will have access to it.
 
-> An organization does not always mean your company. Within your company you may feel the need to create separate organizations for each of your business units. You may find that the goals, systems and cookbooks of your cloud applications team is not the same as your corporate website team, or your desktop applications team. In those instances create new organizations to manage them all seems appropriate.
-
-> Some people use organizations as a gating system as well. As no cookbooks and other materials are not shared between organizations some teams need to only allow certain access to certain individuals. Some teams within a company have created two separate organizations. One for their development and testing. And one for production. This ensures that nothing reaches these other organizations unless it is explicitly copied over. This can be a benfit and it can also be a hazard as it introduces a new release system to manage.
-
 Now with your account created you will need to download the various configuration information and keys necessary to talk with the Chef Server. Through the Chef Manage website I want you to first download the knife configuration file. This is a ruby file that contains the information on where the Chef Server is located.
 
-After downloading this file you will need to place it in the chef repository that you downloaded at the beginning of the day. This knife confguration needs to be placed inside a special directory within that repository named '.chef'. That directory will need to be created and that knife.rb file copied into that directory.
+After downloading this file you will need to place it in the chef repository that you previously downloaded. This knife confguration needs to be placed inside a special directory within that repository named '.chef'. That directory will need to be created and that knife.rb file copied into that directory.
 
 The second file you need to download is your security key that allows you to talk with the Chef Server. This key is available through the manage.chef.io interface under User information. This user key is used to sign all your requests to communicate with the Chef Server. Similar to how you logged into the Chef Server, this ensures we only accept requests from you.
 
